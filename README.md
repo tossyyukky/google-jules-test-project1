@@ -1,80 +1,80 @@
-# OpenSocial Game Platform PoC
+# OpenSocial ゲームプラットフォーム PoC (概念実証)
 
-This project is a Proof of Concept for a social game platform utilizing the OpenSocial API.
+このプロジェクトは、OpenSocial APIを利用したソーシャルゲームプラットフォームの概念実証です。
 
-## Features
+## 主な機能
 
-*   **TOP Page**: Displays a list of available games.
-*   **Game Introduction Page**: Shows details for a selected game.
-*   **Game Execution Page**: Hosts and runs OpenSocial gadgets (games).
-*   **Basic OpenSocial Container**:
-    *   Serves gadget XML files.
-    *   Provides a minimal JavaScript environment (`gadgets.*` and `opensocial.*` mocks) to allow gadgets to run.
-    *   Can render gadgets served locally or fetch from external URLs (with limitations due to mock API completeness).
+*   **TOPページ**: 利用可能なゲームの一覧を表示します。
+*   **ゲーム紹介ページ**: 選択されたゲームの詳細情報を表示します。
+*   **ゲーム実行ページ**: OpenSocialガジェット（ゲーム）をホストし実行します。
+*   **基本的なOpenSocialコンテナ**:
+    *   ガジェットXMLファイルを提供します。
+    *   ガジェットが実行できるように、最小限のJavaScript環境（`gadgets.*` および `opensocial.*` のモック）を提供します。
+    *   ローカルで提供されるガジェットのレンダリング、または外部URLからの取得が可能です（モックAPIの完全性に依存する制限あり）。
 
-## Project Structure
+## プロジェクト構成
 
-*   `app.py`: The main Flask application.
-*   `static/`: Contains static assets (CSS, JavaScript, images).
-    *   `static/js/gadgets.js`: Mock OpenSocial JavaScript API.
-    *   `static/icons/`: Placeholder game icons.
-*   `templates/`: HTML templates for the Flask application.
-    *   `top.html`: Main page listing games.
-    *   `game_intro.html`: Game details page.
-    *   `game_run.html`: Page that hosts the game gadget iframe.
-    *   `gadget_wrapper.html`: HTML shell that includes `gadgets.js` and the gadget content.
-*   `game_data/`: Contains game gadget XML files and related data.
-    *   `sample_gadget.xml`: A sample game gadget demonstrating basic features.
-    *   `mini_gadget.xml`: A very simple gadget for testing.
-*   `tests/`: Contains PyTest unit and integration tests.
-    *   `test_app.py`: Tests for the Flask application routes and logic.
-*   `requirements.txt`: Python dependencies.
-*   `README.md`: This file.
+*   `app.py`: メインのFlaskアプリケーション。
+*   `static/`: 静的アセット（CSS、JavaScript、画像）を格納します。
+    *   `static/js/gadgets.js`: OpenSocial JavaScript APIのモック。
+    *   `static/icons/`: ゲームアイコンのプレースホルダー。
+*   `templates/`: FlaskアプリケーションのHTMLテンプレート。
+    *   `top.html`: ゲームを一覧表示するメインページ。
+    *   `game_intro.html`: ゲーム詳細ページ。
+    *   `game_run.html`: ゲームガジェットのiframeをホストするページ。
+    *   `gadget_wrapper.html`: `gadgets.js`とガジェットコンテンツを含むHTMLシェル。
+*   `game_data/`: ゲームガジェットXMLファイルと関連データを格納します。
+    *   `sample_gadget.xml`: 基本機能を示すサンプルゲームガジェット。
+    *   `mini_gadget.xml`: テスト用の非常にシンプルなガジェット。
+*   `tests/`: PyTestによるユニットテストおよび統合テストを格納します。
+    *   `test_app.py`: Flaskアプリケーションのルートとロジックのテスト。
+*   `requirements.txt`: Pythonの依存関係リスト。
+*   `README.md`: このファイル。
 
-## Setup and Running
+## セットアップと実行方法
 
-1.  **Clone the repository** (if applicable).
+1.  **リポジトリをクローンします** (該当する場合)。
 
-2.  **Create a virtual environment** (recommended):
+2.  **仮想環境を作成します** (推奨):
     ```bash
     python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    source venv/bin/activate  # Windowsの場合: venv\Scripts\activate
     ```
 
-3.  **Install dependencies**:
+3.  **依存関係をインストールします**:
     ```bash
     pip install -r requirements.txt
     ```
 
-4.  **Run the Flask application**:
+4.  **Flaskアプリケーションを実行します**:
     ```bash
     python app.py
     ```
-    The application will typically be available at `http://127.0.0.1:5000/`.
+    アプリケーションは通常 `http://127.0.0.1:5000/` で利用可能になります。
 
-5.  **Running Tests**:
-    To run the automated tests, ensure PyTest is installed (it's in `requirements.txt`) and then run:
+5.  **テストの実行**:
+    自動テストを実行するには、PyTestがインストールされていることを確認し（`requirements.txt`に含まれています）、次のコマンドを実行します:
     ```bash
     pytest
     ```
 
-## Implemented OpenSocial Features (Mocks)
+## 実装されているOpenSocial機能 (モック)
 
-*   **Gadget Rendering**: Gadgets of `type="html"` are supported. Their content is extracted and rendered within an iframe.
-*   **`gadgets.js` API (Partial Mock)**:
-    *   `gadgets.util.registerOnLoadHandler(callback)`: Executes the callback when the DOM is ready.
-    *   `gadgets.window.adjustHeight()`: Logs to console (basic height adjustment not fully implemented across origins without `postMessage`).
-*   **`opensocial.js` API (Partial Mock)**:
-    *   `opensocial.newDataRequest()`: Creates a new data request object.
-    *   `request.add(opensocial.newFetchPersonRequest('VIEWER'), 'viewer')`: Adds a request to fetch viewer data.
-    *   `request.send(callback)`: Simulates sending the request and returns mock data.
-    *   `Person.getDisplayName()`: Returns a mock display name for the viewer.
+*   **ガジェットレンダリング**: `type="html"` のガジェットがサポートされています。コンテンツが抽出され、iframe内にレンダリングされます。
+*   **`gadgets.js` API (部分的モック)**:
+    *   `gadgets.util.registerOnLoadHandler(callback)`: DOMの準備ができたときにコールバックを実行します。
+    *   `gadgets.window.adjustHeight()`: コンソールに出力します（`postMessage`なしでのオリジン間での完全な高さ調整は未実装）。
+*   **`opensocial.js` API (部分的モック)**:
+    *   `opensocial.newDataRequest()`: 新しいデータリクエストオブジェクトを作成します。
+    *   `request.add(opensocial.newFetchPersonRequest('VIEWER'), 'viewer')`: ビューア情報を取得するリクエストを追加します。
+    *   `request.send(callback)`: リクエスト送信をシミュレートし、モックデータを返します。
+    *   `Person.getDisplayName()`: ビューアのモック表示名を返します。
 
-## Future Development Ideas
+## 今後の開発アイデア
 
-*   More complete OpenSocial API implementation (Persistence, Activities, Friends).
-*   User authentication and management.
-*   Database integration for games and user data.
-*   More robust gadget rendering and security (e.g., using Caja or similar sandboxing).
-*   Dynamic game list from a database.
-*   Improved UI/UX.
+*   より完全なOpenSocial API実装 (永続化、アクティビティ、友達機能など)。
+*   ユーザー認証と管理。
+*   ゲームとユーザーデータのデータベース統合。
+*   より堅牢なガジェットレンダリングとセキュリティ (例: Cajaなどを使用したサンドボックス化)。
+*   データベースからの動的なゲームリスト表示。
+*   UI/UXの改善。
