@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+    <ModulePrefs title="Mini Test Gadget">
+        <Require feature="opensocial-0.9" />
+    </ModulePrefs>
+    <Content type="html">
+    <![CDATA[
+        <style>body{background-color: #333; color: #9f9; padding: 5px; font-family: monospace;}</style>
+        <p>Mini Gadget Loaded!</p>
+        <script type="text/javascript">
+            function Greet() {
+                console.log("Mini Gadget's Greet function called via registerOnLoadHandler.");
+                // Try to use a gadget API
+                if (gadgets && gadgets.window) {
+                    gadgets.window.adjustHeight();
+                }
+            }
+            if (gadgets && gadgets.util) {
+                gadgets.util.registerOnLoadHandler(Greet);
+            } else {
+                window.onload = Greet; // Fallback
+            }
+        </script>
+    ]]>
+    </Content>
+</Module>

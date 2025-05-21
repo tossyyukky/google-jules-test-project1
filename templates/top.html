@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Platform - Top</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Available Games</h1>
+    </header>
+    <main>
+        {% if games %}
+            {% for game_id, game in games.items() %}
+            <div class="game-item">
+                <h2><a href="{{ url_for('game_intro_page', game_id=game_id) }}">{{ game.name }}</a></h2>
+                <p>{{ game.description }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No games available at the moment.</p>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2023 Social Game Platform</p>
+    </footer>
+</body>
+</html>

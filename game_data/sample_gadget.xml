@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+    <ModulePrefs title="Sample Game Gadget" description="A very basic OpenSocial gadget.">
+        <Require feature="opensocial-0.9" />
+        <Require feature="dynamic-height" />
+    </ModulePrefs>
+    <Content type="html">
+    <![CDATA[
+        <style>
+            body { margin: 10px; font-family: sans-serif; background-color: #222; color: #fff; text-align: center;}
+            h2 { color: #0f0; }
+        </style>
+        <h2>Hello from Sample Game!</h2>
+        <p>This is a simple OpenSocial Gadget.</p>
+        <p>User: <span id="viewer-name">Loading...</span></p>
+
+        <script type="text/javascript">
+            function init() {
+                // In a real scenario, gadgets.util.registerOnLoadHandler(fetchViewer);
+                // For now, direct call for simplicity in this early stage.
+                fetchViewer();
+                gadgets.window.adjustHeight(); // Adjust height after content load
+            }
+
+            function fetchViewer() {
+                var req = opensocial.newDataRequest();
+                req.add(opensocial.newFetchPersonRequest('VIEWER'), 'viewer');
+                req.send(onViewerData);
+            }
+
+            function onViewerData(data) {
+                var viewerName = "Error fetching viewer";
+                var viewerInfo = data.get('viewer');
+                if (viewerInfo && !viewerInfo.hadError()) {
+                    var viewer = viewerInfo.getData();
+                    if (viewer) {
+                        viewerName = viewer.getDisplayName() || "Unknown Name";
+                    }
+                }
+                var nameEl = document.getElementById('viewer-name');
+                if (nameEl) {
+                    nameEl.textContent = viewerName;
+                }
+            }
+            
+            // Simplified gadget loading for now
+            if (window.gadgets && gadgets.util) {
+                 gadgets.util.registerOnLoadHandler(init);
+            } else {
+                // Fallback if gadgets API not fully loaded (e.g. running standalone)
+                window.onload = init;
+            }
+        </script>
+    ]]>
+    </Content>
+</Module>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ game.name }} - Game Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>{{ game.name }}</h1>
+    </header>
+    <main>
+        {% if game.icon %}
+        <img src="{{ url_for('static', filename=game.icon.replace('static/', '')) }}" alt="{{ game.name }} Icon" width="100">
+        {% endif %}
+        <p><strong>Description:</strong> {{ game.description }}</p>
+        <p><strong>Developer:</strong> {{ game.developer }}</p>
+        <p><strong>Version:</strong> {{ game.version }}</p>
+        
+        <!-- The link to game_run will be added when that page is implemented -->
+        <a href="{{ url_for('game_run_page', game_id=game_id) }}" class="button">Start Game</a> 
+    </main>
+    <footer>
+        <p>&copy; 2023 Social Game Platform</p>
+    </footer>
+</body>
+</html>
