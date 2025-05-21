@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ゲームプラットフォーム - TOP</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>利用可能なゲーム</h1>
+    </header>
+    <main>
+        {{ if .games }}
+            {{ range $game_id, $game := .games }}
+            <div class="game-item">
+                <h2><a href="/game/{{ $game_id }}">{{ $game.Name }}</a></h2>
+                <p>{{ $game.Description }}</p>
+            </div>
+            {{ end }}
+        {{ else }}
+            <p>現在利用可能なゲームはありません。</p>
+        {{ end }}
+    </main>
+    <footer>
+        <p>&copy; 2024 Social Game Platform</p>
+    </footer>
+</body>
+</html>

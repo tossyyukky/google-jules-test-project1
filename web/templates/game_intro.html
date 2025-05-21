@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .game.Name }} - ゲーム詳細</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>{{ .game.Name }}</h1>
+    </header>
+    <main>
+        {{ if .game.IconFilename }}
+        <img src="/static/icons/{{ .game.IconFilename }}" alt="{{ .game.Name }} Icon" width="100">
+        {{ end }}
+        <p><strong>説明:</strong> {{ .game.Description }}</p>
+        <p><strong>開発元:</strong> {{ .game.Developer }}</p>
+        <p><strong>バージョン:</strong> {{ .game.Version }}</p>
+        
+        <a href="/game/{{ .game_id }}/play" class="button">ゲーム開始</a> 
+    </main>
+    <footer>
+        <p>&copy; 2024 Social Game Platform</p>
+    </footer>
+</body>
+</html>
